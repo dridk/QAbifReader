@@ -5,7 +5,7 @@ Qt5 ABIF file reader for Genetic Analysis
 
 
 
-QAbifReader is a Qt library to load data from an abif file following the specification of [Abif file format](http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf).
+QAbifReader is a [Qt](http://www.qt.io) library to load data from an abif file following the specification of [Abif file format](http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf).
 It allows you to read all content of ab1 and fsa file. But it doesn't provide any widget to show data. You can do it easily using 
 [QCustomPlot](http://www.qcustomplot.com/index.php/demos/datedemo)
 
