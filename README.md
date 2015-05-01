@@ -70,7 +70,8 @@ Just copy abifreader.cpp and abifreader.h to your main project
     
 ## Thanks
 Thanks Tyler Smith for this [blog post](http://plantarum.ca/code/abi-part1/)
-Thanks Yves Schutz to explain how bitwise works !
+Thanks Yves Schutz to explain   
+how bitwise works !
 
 
 
