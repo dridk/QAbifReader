@@ -66,3 +66,11 @@ Just copy abifreader.cpp and abifreader.h to your main project
           customPlot->resize(800,400);
           return a.exec();
     }
+    
+    
+## Thanks
+Thanks Tyler Smith for this [blog post](http://plantarum.ca/code/abi-part1/)
+Thanks Yves Schutz to explain how bitwise works !
+
+
+
