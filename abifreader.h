@@ -65,7 +65,7 @@ public:
       *  \brief Constructor
       *  \param QIOdevice : input device
       */
-    AbifReader(QIODevice * device);
+    AbifReader(QIODevice * device );
 
     /*!
       *  \brief Constructor
@@ -163,7 +163,7 @@ private:
     QIODevice * mDevice;
     QString mAbif;
     qint16 mVersion;
-    QHash<QString,AbifDir> mDirs;  // keys = name.number
+    QMap<QString,AbifDir> mDirs;  // keys = name.number
     AbifDir mRootDir;
 };
 

@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    abifreader.cpp
+    abifreader.cpp \
+    abifmodel.cpp
 
 HEADERS  += mainwindow.h \
-    abifreader.h
+    abifreader.h \
+    abifmodel.h
 
 FORMS    += mainwindow.ui

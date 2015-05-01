@@ -7,9 +7,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mModel = new QStringListModel;
-    ui->listView->setModel(mModel);
+    mModel = new AbifModel;
+    ui->tableView->setModel(mModel);
     connect(ui->actionLoad,SIGNAL(triggered()),this,SLOT(load()));
+
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+
+
+    load("/home/sacha/temp/M3.fsa");
 }
 
 MainWindow::~MainWindow()
@@ -17,24 +22,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::load()
+void MainWindow::load(const QString &fileName)
 {
 
+    mModel->setFilename(fileName);
+
+
+
+}
+
+void MainWindow::load()
+{
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open abif file"), "", tr("Abif Files (*.ab1 *.fsa)"));
     if (fileName.isEmpty())
         return;
 
-
-    AbifReader reader(fileName);
-
-    if(!reader.isAbif()){
-        QMessageBox::information(this,"error","not an abif file");
-        return;
-    }
-
-
-
-    mModel->setStringList(reader.directoryKeys());
-
+    load(fileName);
 }

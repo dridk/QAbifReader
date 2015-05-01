@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "abifmodel.h"
 #include "abifreader.h"
 
 namespace Ui {
@@ -17,10 +18,11 @@ public:
     ~MainWindow();
 public slots:
     void load();
+    void load(const QString& fileName);
 
 private:
     Ui::MainWindow *ui;
-    QStringListModel * mModel;
+    AbifModel * mModel;
 };
 
 #endif // MAINWINDOW_H

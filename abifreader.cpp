@@ -16,6 +16,7 @@
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "abifreader.h"
+#include <byteswap.h>
 
 AbifDir::AbifDir()
 {
@@ -105,34 +106,42 @@ QVariant AbifReader::fromDir(const AbifDir &dir)
 
     //debugDir(dir);
     QByteArray part;
-    QDataStream stream(&part, QIODevice::ReadOnly);
-    stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
-    stream.setByteOrder(QDataStream::BigEndian);
 
-    qDebug()<<"=================";
 
     if (dir.dataSize<=4){
-        part.append((char*)&dir.dataOffset,dir.dataSize);
-        stream.setByteOrder(QDataStream::LittleEndian);
+
+        int val = dir.dataOffset;
+        val = __bswap_32(val);
+        char * data = (char*)&val;
+        part.setRawData(data,dir.dataSize);
 
     }
     else {
-        qDebug()<<"offset mode";
         mDevice->seek(dir.dataOffset);
         part = mDevice->read(dir.dataSize);
-        stream.setByteOrder(QDataStream::BigEndian);
 
     }
 
-    qDebug()<<"array size"<<part.size();
+    QDataStream stream(part);
+    stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setByteOrder(QDataStream::BigEndian);
+
+
 
     //-----------------------------------------------
     if (Type(dir.elementType) == CString ) // 19
-        return QString(part).simplified();
+    {
+        part.chop(1);
+        return QString(part);
+    }
     //-----------------------------------------------
 
     if (Type(dir.elementType) == PString ) // 18
-        return QString(part).simplified();
+    {
+        part.remove(0,1);
+        return QString(part);
+    }
+
     //-----------------------------------------------
 
     if (Type(dir.elementType) == Word ) // 3
@@ -147,6 +156,12 @@ QVariant AbifReader::fromDir(const AbifDir &dir)
     {
         QVariantList list;
         qint16 v;
+
+        if (dir.name == "Scal")
+        {
+            qDebug()<<dir.elementsize;
+        }
+
         while (!stream.atEnd())
         {
 
@@ -167,11 +182,13 @@ QVariant AbifReader::fromDir(const AbifDir &dir)
             quint8 month;
             quint8 day;
 
-            stream >> day;
-            stream >> month;
-            stream >> year;
 
-            QDate date;
+            stream >> year;
+            stream >> month;
+            stream >> day;
+
+
+            QDate date = QDate();
             date.setDate(year,month,day);
             list.append(date);
         }
@@ -185,21 +202,24 @@ QVariant AbifReader::fromDir(const AbifDir &dir)
         QVariantList list;
         while (!stream.atEnd())
         {
-            quint8 hour;
-            quint8 minute;
-            quint8 second;
-            quint8 hsecond;
+            quint8 hour    = 0;
+            quint8 minute  = 0;
+            quint8 second  = 0;
+            quint8 hsecond = 0;
 
-            stream >> hsecond;
-            stream >> second;
-            stream >> minute;
-            stream >> hour;
+            stream>>hour;
+            stream>>minute;
+            stream>>second;
+            stream>>hsecond;
 
-            QTime time;
-            time.setHMS(hour,minute,second,hsecond);
+            qDebug()<<hour;  // HUGE BUG... IF I remove this, QTime won't be set
+
+            QTime time(hour,minute,second,hsecond);
+
             list.append(time);
-        }
 
+
+        }
         return reduce(list);
     }
     //-----------------------------------------------
@@ -231,13 +251,15 @@ QVariant AbifReader::fromDir(const AbifDir &dir)
 
         return reduce(list);
     }
+
+    return QVariant(-1);
 }
 //----------------------------------------------------------------
 QVariant AbifReader::reduce(QVariantList &list)
 {
     if (list.count() == 1)
         return list.first();
-    else return list;
+    else return QVariant::fromValue(list);
 }
 
 //----------------------------------------------------------------
