@@ -69,8 +69,8 @@ Just copy abifreader.cpp and abifreader.h to your main project
     
     
 ## Thanks
-Thanks Tyler Smith for this [blog post](http://plantarum.ca/code/abi-part1/)   
-Thanks Yves Schutz to explain how bitwise works !
+Thanks [Tyler Smith](https://github.com/plantarum) for this [blog post](http://plantarum.ca/code/abi-part1/)   
+Thanks [Yves Schutz](https://github.com/yschutz) to explain how bitwise works !
 
 
 
