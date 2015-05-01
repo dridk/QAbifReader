@@ -1,4 +1,3 @@
-# QAbifReader
 Qt5 ABIF file reader for Genetic Analysis i
 ======================================
 [![License](https://img.shields.io/badge/license-GPLv2.1%2B-blue.svg)](https://img.shields.io/badge/license-GPL%203%2B-blue.svg)
