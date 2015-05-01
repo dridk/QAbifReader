@@ -20,7 +20,7 @@ Just copy abifreader.cpp and abifreader.h to your main project
 ## Use
 
     AbifReader reader("file.fsa")
-    reader.data("Peak.1") 
+    QVariantList peaks = reader.data("Data.1").toList() 
   
   
 ## Full example 
