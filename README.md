@@ -2,9 +2,15 @@ Qt5 ABIF file reader for Genetic Analysis
 ======================================
 [![License](https://img.shields.io/badge/license-GPLv2.1%2B-blue.svg)](https://img.shields.io/badge/license-GPL%203%2B-blue.svg)
 
-QAbifReader is a library to load data from an abif file following the specification of [Abif file format](http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf).
+
+
+
+QAbifReader is a [Qt](http://www.qt.io) library to load data from an abif file following the specification of [Abif file format](http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf).
 It allows you to read all content of ab1 and fsa file. But it doesn't provide any widget to show data. You can do it easily using 
 [QCustomPlot](http://www.qcustomplot.com/index.php/demos/datedemo)
+
+### Example
+![](https://raw.githubusercontent.com/dridk/QAbifReader/master/preview.png)
 
 ### Dependencies
 
@@ -60,3 +66,11 @@ Just copy abifreader.cpp and abifreader.h to your main project
           customPlot->resize(800,400);
           return a.exec();
     }
+    
+    
+## Thanks
+Thanks [Tyler Smith](https://github.com/plantarum) for this [blog post](http://plantarum.ca/code/abi-part1/)   
+Thanks [Yves Schutz](https://github.com/yschutz) to explain how bitwise works !
+
+
+
